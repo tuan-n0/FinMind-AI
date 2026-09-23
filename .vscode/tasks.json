@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Chạy Backend",
+      "type": "shell",
+      "command": ".\\start.bat",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always", "group": "finmind" }
+    },
+    {
+      "label": "Chạy Frontend",
+      "type": "shell",
+      "command": "python -m http.server 5173",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always", "group": "finmind" }
+    },
+    {
+      "label": "Mở trình duyệt",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-Command", "Start-Sleep -Seconds 3; Start-Process 'http://localhost:5173/index.html'"],
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "silent", "group": "finmind", "close": true }
+    },
+    {
+      "label": "Chạy Backend + Frontend",
+      "dependsOn": ["Chạy Backend", "Chạy Frontend", "Mở trình duyệt"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Chạy Test (pytest)",
+      "type": "shell",
+      "command": "venv\\Scripts\\python.exe -m pytest -v",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "reveal": "always", "group": "finmind" },
+      "group": { "kind": "test", "isDefault": true }
+    }
+  ]
+}

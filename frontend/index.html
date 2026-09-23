@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Đăng nhập</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body>
+<div class="auth-shell">
+
+  <section class="auth-form-col">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-mark" id="logoIcon2" style="background:linear-gradient(135deg,var(--brand-1),var(--brand-2))"></div>
+        <div class="brand-text"><b>FinMind AI</b><span>Chi tiêu &amp; tiết kiệm thông minh</span></div>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="tabLogin" class="active">Đăng nhập</button>
+        <button id="tabRegister">Đăng ký</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm">
+        <h2>Chào mừng trở lại 👋</h2>
+        <p class="lead">Đăng nhập để xem tổng quan tài chính và trợ lý AI của bạn.</p>
+
+        <div class="field">
+          <label>Email</label>
+          <div class="input-icon-wrap" id="loginMailWrap">
+            <input class="input" type="email" id="loginEmail" placeholder="ban@email.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label>Mật khẩu</label>
+          <div class="input-icon-wrap" style="position:relative">
+            <span id="loginLockIcon"></span>
+            <input class="input" type="password" id="loginPass" placeholder="Nhập mật khẩu" required />
+            <span class="pass-toggle" id="toggleLoginPass"></span>
+          </div>
+        </div>
+
+        <div class="auth-row-between">
+          <label class="checkbox-row"><input type="checkbox" checked /> Ghi nhớ đăng nhập</label>
+          <span class="link-accent">Quên mật khẩu?</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full" id="loginSubmitBtn" style="justify-content:center;padding:12px;">Đăng nhập</button>
+        <p class="text-muted" style="text-align:center;font-size:11.5px;margin-top:10px;">Tài khoản demo: <b>tuan.ngo@finmind.vn</b> / <b>finmind123</b></p>
+
+        <div class="divider-or">hoặc tiếp tục với</div>
+        <div class="oauth-row">
+          <button type="button" class="oauth-btn" id="googleIcon">Google</button>
+          <button type="button" class="oauth-btn" id="appleIcon">Apple</button>
+        </div>
+
+        <p class="auth-foot">Chưa có tài khoản? <span class="link-accent" id="goRegister">Đăng ký ngay</span></p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" style="display:none">
+        <h2>Tạo tài khoản mới ✨</h2>
+        <p class="lead">Miễn phí, mất chưa đến 1 phút để bắt đầu quản lý chi tiêu.</p>
+
+        <div class="field">
+          <label>Họ và tên</label>
+          <input class="input" type="text" id="regName" placeholder="Nguyễn Văn A" required />
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input class="input" type="email" id="regEmail" placeholder="ban@email.com" required />
+        </div>
+        <div class="field">
+          <label>Mật khẩu</label>
+          <input class="input" type="password" id="regPassword" placeholder="Tối thiểu 8 ký tự" required minlength="8" />
+        </div>
+        <div class="field">
+          <label>Xác nhận mật khẩu</label>
+          <input class="input" type="password" id="regPasswordConfirm" placeholder="Nhập lại mật khẩu" required minlength="8" />
+        </div>
+        <label class="checkbox-row" style="margin-bottom:18px;">
+          <input type="checkbox" required /> Tôi đồng ý với Điều khoản sử dụng &amp; Chính sách bảo mật
+        </label>
+
+        <button type="submit" class="btn btn-primary w-full" id="registerSubmitBtn" style="justify-content:center;padding:12px;">Tạo tài khoản</button>
+
+        <p class="auth-foot">Đã có tài khoản? <span class="link-accent" id="goLogin">Đăng nhập</span></p>
+      </form>
+
+      <div class="disclaimer" id="authDisclaimer">
+        <span>FinMind AI chỉ đưa ra gợi ý tham khảo dựa trên dữ liệu bạn cung cấp, không thay thế tư vấn tài chính chuyên nghiệp.</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script>
+  document.getElementById('logoIcon2').innerHTML = icon('logoMark');
+  document.getElementById('loginLockIcon').outerHTML = icon('lock');
+  document.getElementById('toggleLoginPass').innerHTML = icon('eye');
+  document.getElementById('googleIcon').innerHTML = icon('google') + ' Google';
+  document.getElementById('appleIcon').innerHTML = icon('apple') + ' Apple';
+  document.getElementById('authDisclaimer').innerHTML = icon('shield') + '<span>FinMind AI chỉ đưa ra gợi ý tham khảo dựa trên dữ liệu bạn cung cấp, không thay thế tư vấn tài chính chuyên nghiệp.</span>';
+
+  const tabLogin = document.getElementById('tabLogin');
+  const tabRegister = document.getElementById('tabRegister');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+
+  function showLogin(){
+    tabLogin.classList.add('active'); tabRegister.classList.remove('active');
+    loginForm.style.display='block'; registerForm.style.display='none';
+  }
+  function showRegister(){
+    tabRegister.classList.add('active'); tabLogin.classList.remove('active');
+    registerForm.style.display='block'; loginForm.style.display='none';
+  }
+  tabLogin.addEventListener('click', showLogin);
+  tabRegister.addEventListener('click', showRegister);
+  document.getElementById('goRegister').addEventListener('click', showRegister);
+  document.getElementById('goLogin').addEventListener('click', showLogin);
+
+  let passVisible = false;
+  document.getElementById('toggleLoginPass').addEventListener('click', ()=>{
+    passVisible = !passVisible;
+    const inp = document.getElementById('loginPass');
+    inp.type = passVisible ? 'text' : 'password';
+    document.getElementById('toggleLoginPass').innerHTML = icon(passVisible?'eyeOff':'eye');
+  });
+
+  if(Api.isLoggedIn()){ window.location.href = 'dashboard.html'; }
+
+  function setBusy(btn, busy, busyText, idleText){
+    btn.disabled = busy;
+    btn.textContent = busy ? busyText : idleText;
+  }
+
+  loginForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('loginSubmitBtn');
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPass').value;
+    setBusy(btn, true, 'Đang đăng nhập…', 'Đăng nhập');
+    try{
+      const res = await Api.login(email, password);
+      Api.setToken(res.access_token);
+      clearViewPeriod();
+      window.location.href = 'dashboard.html';
+    }catch(err){
+      showToast(err.message || 'Đăng nhập thất bại', 'error');
+      setBusy(btn, false, '', 'Đăng nhập');
+    }
+  });
+
+  registerForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = document.getElementById('registerSubmitBtn');
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regPasswordConfirm').value;
+    if(password !== confirm){ showToast('Mật khẩu xác nhận không khớp', 'error'); return; }
+
+    setBusy(btn, true, 'Đang tạo tài khoản…', 'Tạo tài khoản');
+    try{
+      const res = await Api.register(email, password, name);
+      Api.setToken(res.access_token);
+      clearViewPeriod();
+      window.location.href = 'dashboard.html';
+    }catch(err){
+      showToast(err.message || 'Đăng ký thất bại', 'error');
+      setBusy(btn, false, '', 'Tạo tài khoản');
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Báo cáo</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="reports" data-title="Báo cáo" data-subtitle="Thống kê chi tiết tình hình tài chính của bạn">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>Báo cáo tài chính</h2>
+          <p id="periodLabel">Thống kê chi tiết tình hình thu chi của bạn.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost" id="btnPdf"><span id="fileIcon"></span>Xuất PDF</button>
+          <button class="btn btn-ghost" id="btnCsv"><span id="dlIcon"></span>Xuất Excel (CSV)</button>
+        </div>
+      </div>
+
+      <div class="grid grid-5" id="statGrid"></div>
+
+      <div class="grid grid-2 mt-20">
+        <div class="card card-pad">
+          <div class="card-head"><h3>Thu nhập &amp; chi tiêu theo tháng</h3></div>
+          <div class="chart-box" style="height:230px;"><canvas id="barChart"></canvas></div>
+        </div>
+        <div class="card card-pad">
+          <div class="card-head"><h3>Cơ cấu chi tiêu theo danh mục</h3></div>
+          <div class="chart-box" style="height:180px;"><canvas id="donutChart"></canvas></div>
+          <div id="donutLegend" class="mt-12"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-2 mt-20">
+        <div class="card card-pad">
+          <div class="card-head"><h3>Xu hướng dòng tiền ròng</h3></div>
+          <div class="chart-box" style="height:210px;"><canvas id="netChart"></canvas></div>
+        </div>
+        <div class="card card-pad">
+          <div class="card-head"><h3>So sánh với tháng trước</h3></div>
+          <div id="compareBars" class="mt-12"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-main-side mt-20">
+        <div class="card card-pad">
+          <div class="card-head"><h3>Top 5 khoản chi lớn nhất</h3></div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>#</th><th>Khoản chi</th><th>Danh mục</th><th>Số tiền</th><th>Tỷ trọng</th></tr></thead>
+              <tbody id="topBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card card-pad">
+          <div class="panel-ai-header">
+            <div class="stat-icon" id="aiIcon"></div>
+            <div><h3>AI phân tích &amp; gợi ý</h3><p class="card-sub">Tóm tắt báo cáo tháng này</p></div>
+          </div>
+          <div id="aiTipsList"></div>
+          <div class="disclaimer" id="aiDisclaimer"></div>
+        </div>
+      </div>
+
+      <p class="text-muted mt-20" style="font-size:11.5px;text-align:center;" id="footNote"></p>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts-common.js"></script>
+<script src="js/reports.js"></script>
+</body>
+</html>

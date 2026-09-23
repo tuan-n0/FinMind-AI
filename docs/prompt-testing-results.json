@@ -1,0 +1,32 @@
+[
+  {
+    "elapsed_ms": 45272,
+    "raw": "Dưới đây là phân tích và giải thích về du liệu chi tiêu:\n\n**Chi tiêu hàng tháng**\n\n* **Ăn uống**: 6 tỷ đồng, dưới mức hạn ngạch 6,5 tỷ đồng\n* **Mua sắm**: 2,9 tỷ đồng, dưới mức hạn ngạch 3 tỷ đồng\n* **Đi lại**: 2,65 tỷ đồng, dưới mức hạn ngạch 3 tỷ đồng\n* **Hóa đơn**: 2,3 tỷ đồng, dưới mức hạn ngạch 2,5 tỷ đồng\n* **Giải trí**: 2,1 tỷ đồng, trên mức hạn ngạch 2 tỷ đồng\n\n**Hạn ngạch và chi tiêu**\n\n* **Ăn uống**: Hạn ngạch 6,5 tỷ đồng, chi tiêu là 6 tỷ đồng (dưới mức hạn ngạch)\n* **Giải trí**: Hạn ngạch 2 tỷ đồng, chi tiêu là 2,1 tỷ đồng (trên mức hạn ngạch)\n\n**Quỹ khẩn cấp**\n\n* **Mục tiêu**: 30 tỷ đồng\n* **Là được tiết kiệm**: 19,5 tỷ đồng\n\nTóm tắt:\n\n* Chi tiêu hàng tháng của bạn chủ yếu tập trung vào các khoản như ăn uống, mua sắm, đi lại, hóa đơn và giải trí.\n* Một số khoản chi tiêu, như ăn uống và mua sắm, dưới mức hạn ngạch.\n* Một số khoản chi tiêu, như giải trí và hóa đơn, trên mức hạn ngạch.\n* Quỹ khẩn cấp đã được tiết kiệm 19,5 tỷ đồng, đạt được 63,7% mục tiêu.\n\nHy vọng phân tích này giúp bạn có một cái nhìn tổng quan về tình hình chi tiêu của mình!",
+    "valid_json": false,
+    "has_required_keys": false,
+    "round": "Vong 1 - khong rang buoc dinh dang"
+  },
+  {
+    "elapsed_ms": 90021,
+    "error": "HTTPConnectionPool(host='127.0.0.1', port=11434): Read timed out. (read timeout=90)",
+    "round": "Vong 2 - yeu cau JSON trong prompt"
+  },
+  {
+    "elapsed_ms": 21700,
+    "raw": "{\"summary\": \"Tháng này, chi tiêu được phân bổ chủ yếu cho các khoản như Ăn uống và Mua sắm, trong khi tiêu đề Đi lại và Hóa đơn được kiểm soát tốt. Tuy nhiên, vẫn cần lưu ý đến việc tiết kiệm chi phí.\", \"suggestions\": [\"Đảm bảo tuân thủ ngân sách cho các khoản Ăn uống và Mua sắm.\", \"Xác định ngân sách cụ thể cho các khoản tiêu dùng khác như Đi lại và Hóa đơn.\", \"Giám sát hoạt động của Quỹ khẩn cấp để đảm bảo đạt mục tiêu tiết kiệm.\"], \"warnings\": [\"Lưu ý đến các khoản chi tiêu không được ghi nhận.\"] }",
+    "valid_json": true,
+    "has_required_keys": true,
+    "parsed": {
+      "summary": "Tháng này, chi tiêu được phân bổ chủ yếu cho các khoản như Ăn uống và Mua sắm, trong khi tiêu đề Đi lại và Hóa đơn được kiểm soát tốt. Tuy nhiên, vẫn cần lưu ý đến việc tiết kiệm chi phí.",
+      "suggestions": [
+        "Đảm bảo tuân thủ ngân sách cho các khoản Ăn uống và Mua sắm.",
+        "Xác định ngân sách cụ thể cho các khoản tiêu dùng khác như Đi lại và Hóa đơn.",
+        "Giám sát hoạt động của Quỹ khẩn cấp để đảm bảo đạt mục tiêu tiết kiệm."
+      ],
+      "warnings": [
+        "Lưu ý đến các khoản chi tiêu không được ghi nhận."
+      ]
+    },
+    "round": "Vong 3 (production) - system/user prompt tu prompts.py + format=json"
+  }
+]

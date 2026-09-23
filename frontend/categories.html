@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Danh mục</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="categories" data-title="Danh mục" data-subtitle="Tổ chức các nhóm thu chi của bạn">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>Danh mục</h2>
+          <p>Quản lý và tùy chỉnh các danh mục thu/chi để theo dõi chi tiêu hiệu quả hơn.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-primary" onclick="openCategoryForm()"><span id="plusIcon"></span>Tạo danh mục mới</button>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="statGrid"></div>
+
+      <div class="grid grid-main-side mt-20">
+        <div>
+          <div class="flex items-center justify-between mt-8" style="flex-wrap:wrap;gap:12px;">
+            <div class="tabs" id="tabBar">
+              <div class="tab active" data-tab="all">Tất cả</div>
+              <div class="tab" data-tab="expense">Danh mục chi</div>
+              <div class="tab" data-tab="income">Danh mục thu</div>
+            </div>
+            <div class="input-icon-wrap" style="min-width:240px;">
+              <span id="searchIcon"></span>
+              <input class="input" id="catSearch" placeholder="Tìm kiếm danh mục…" />
+            </div>
+          </div>
+
+          <div class="mt-20" id="catSections"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="card-head"><h3>Danh mục dùng nhiều nhất</h3></div>
+            <div id="topCatList"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiIcon"></div>
+              <div><h3>Gợi ý từ AI</h3><p class="card-sub">Tối ưu hóa danh mục của bạn</p></div>
+            </div>
+            <div id="aiMergeBox"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/categories.js"></script>
+</body>
+</html>

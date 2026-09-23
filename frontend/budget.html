@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Ngân sách</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="budget" data-title="Ngân sách" data-subtitle="Kiểm soát hạn mức chi tiêu theo danh mục">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>Ngân sách</h2>
+          <p id="periodLabel">Quản lý và theo dõi ngân sách theo danh mục chi tiêu.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-primary" onclick="openBudgetForm()"><span id="plusIcon"></span>Tạo ngân sách</button>
+        </div>
+      </div>
+
+      <div class="card card-pad" id="overviewCard"></div>
+
+      <div class="grid grid-main-side mt-20">
+        <div class="card card-pad">
+          <div class="card-head"><h3>Ngân sách theo danh mục</h3></div>
+          <div id="budgetList"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiIcon"></div>
+              <div><h3>AI gợi ý ngân sách</h3><p class="card-sub">Đề xuất tham khảo theo dữ liệu chi tiêu</p></div>
+            </div>
+            <div id="aiSuggestList"></div>
+            <div class="disclaimer" id="aiDisclaimer"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Xu hướng tuân thủ ngân sách</h3></div>
+            <p class="card-sub" style="margin-top:-10px;margin-bottom:10px;">6 tháng gần nhất</p>
+            <div class="chart-box" style="height:150px;"><canvas id="complianceChart"></canvas></div>
+            <div class="flex justify-between mt-12" style="font-size:12px;font-weight:700;color:var(--ink-500);">
+              <span>Tỷ lệ tuân thủ trung bình</span><span id="avgCompliance" style="color:var(--ink-900);"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts-common.js"></script>
+<script src="js/budget.js"></script>
+</body>
+</html>

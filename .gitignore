@@ -1,0 +1,19 @@
+# Backend (Python)
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.pytest_cache/
+backend/*.db
+backend/.env
+backend/uvicorn_out.log
+backend/uvicorn_err.log
+backend/*.db.before-restore
+
+# Database backups (runtime, không phải mã nguồn)
+database/backups/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/tasks.json

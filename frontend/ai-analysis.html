@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — AI phân tích</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="ai-analysis" data-title="AI phân tích" data-subtitle="Báo cáo chuyên sâu do AI tổng hợp từ dữ liệu của bạn">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>AI phân tích</h2>
+          <p>Phân tích chuyên sâu dựa trên dữ liệu chi tiêu thật của bạn — không có số liệu bịa đặt.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost" id="btnNew"><span id="sparkIcon2"></span>Tạo phân tích mới</button>
+          <button class="btn btn-primary" id="btnSave"><span id="dlIcon"></span>Lưu báo cáo AI</button>
+        </div>
+      </div>
+
+      <div class="card card-pad">
+        <div class="report-hero">
+          <div class="stat-icon" id="heroIcon"></div>
+          <div>
+            <h3 id="heroTitle" style="font-size:17px;">Báo cáo AI — Phân tích chi tiêu</h3>
+            <p class="card-sub" id="heroSub"></p>
+          </div>
+          <div class="confidence-chip" id="confidenceChip"></div>
+        </div>
+
+        <div class="quad-grid" id="quadGrid"></div>
+      </div>
+
+      <div class="card card-pad mt-20">
+        <div class="card-head"><h3>So sánh &amp; đánh giá</h3></div>
+        <div class="grid grid-4" id="compareStats"></div>
+        <div class="mt-20">
+          <div class="card-sub" style="margin-bottom:10px;">So sánh tỷ lệ tiết kiệm với mức khuyến nghị chung <span class="hint">(tham khảo, không dùng dữ liệu người dùng khác)</span></div>
+          <div id="benchmarkBars"></div>
+        </div>
+      </div>
+
+      <div class="mt-20">
+        <div class="card-head" style="margin-bottom:14px;"><h3>AI insights sâu hơn</h3></div>
+        <div class="grid grid-4" id="insightGrid"></div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts-common.js"></script>
+<script src="js/ai-analysis.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Tổng quan</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="dashboard" data-title="Tổng quan" data-subtitle="Bức tranh tài chính của bạn, được AI tóm tắt mỗi ngày">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2 id="greeting">Xin chào 👋</h2>
+          <p id="greetingSub">Đang tải dữ liệu…</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-primary" onclick="location.href='add-transaction.html'"><span id="plusIcon"></span>Thêm giao dịch</button>
+        </div>
+      </div>
+
+      <div class="grid grid-4" id="kpiGrid"></div>
+
+      <div class="grid grid-main-side mt-20">
+        <!-- MAIN COLUMN -->
+        <div style="display:flex;flex-direction:column;gap:18px;">
+
+          <div class="card card-pad">
+            <div class="card-head">
+              <div>
+                <h3>Xu hướng thu &amp; chi — 12 tháng gần nhất</h3>
+                <p class="card-sub">So sánh dòng tiền vào/ra theo từng tháng</p>
+              </div>
+              <span class="pill info">Đã đối chiếu ngân sách</span>
+            </div>
+            <div class="chart-box" style="height:260px;"><canvas id="trendChart"></canvas></div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="card card-pad">
+              <div class="card-head">
+                <h3>Chi tiêu theo danh mục</h3>
+                <span class="muted-link" onclick="location.href='reports.html'">Xem báo cáo <span id="chevRight1"></span></span>
+              </div>
+              <div class="chart-box" style="height:210px;"><canvas id="donutChart"></canvas></div>
+              <div id="donutLegend" class="mt-12"></div>
+            </div>
+
+            <div class="card card-pad">
+              <div class="card-head">
+                <h3>Tiến độ ngân sách</h3>
+                <span class="muted-link" onclick="location.href='budget.html'">Quản lý <span id="chevRight2"></span></span>
+              </div>
+              <div id="budgetMiniList"></div>
+            </div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head">
+              <h3>Giao dịch gần đây</h3>
+              <span class="muted-link" onclick="location.href='transactions.html'">Xem tất cả <span id="chevRight3"></span></span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Ngày</th><th>Mô tả</th><th>Danh mục</th><th>Tài khoản</th><th>Số tiền</th></tr></thead>
+                <tbody id="recentTxBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDE COLUMN -->
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiHeadIcon"></div>
+              <div><h3>AI phân tích &amp; gợi ý</h3><p class="card-sub">Dựa trên dữ liệu tháng này</p></div>
+            </div>
+            <div id="aiTipsList"></div>
+            <div class="disclaimer" id="aiDisclaimer1"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="chatHeadIcon"></div>
+              <div><h3>Trợ lý AI</h3><p class="card-sub">Hỏi nhanh về chi tiêu của bạn</p></div>
+            </div>
+            <div class="msg" style="max-width:100%;">
+              <div class="msg-avatar ai" id="chatAvatarIcon"></div>
+              <div class="msg-bubble" id="chatTeaser">Xin chào! Tôi có thể giúp bạn phân tích chi tiêu tháng này.</div>
+            </div>
+            <div class="chat-quick" id="dashQuick"></div>
+            <button class="btn btn-ghost w-full" style="justify-content:center;margin-top:6px;" onclick="location.href='ai-chat.html'">Mở AI Chat</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/charts-common.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

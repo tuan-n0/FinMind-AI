@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Thêm giao dịch</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="transactions" data-title="Thêm giao dịch" data-subtitle="Ghi nhận thu nhập hoặc chi tiêu mới">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>Thêm giao dịch</h2>
+          <p>Nhập số tiền và vài thông tin, AI sẽ hỗ trợ gợi ý phần còn lại.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost" onclick="location.href='transactions.html'">Hủy</button>
+        </div>
+      </div>
+
+      <div class="grid grid-main-side">
+        <form class="card card-pad" id="txForm">
+          <div class="field">
+            <label>Loại giao dịch</label>
+            <div class="toggle-row">
+              <div class="toggle-opt income active" data-type="income"><span id="incomeIcon"></span><span>Thu nhập</span></div>
+              <div class="toggle-opt expense" data-type="expense"><span id="expenseIcon"></span><span>Chi tiêu</span></div>
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="field">
+              <label>Số tiền (VNĐ)</label>
+              <input class="input" type="number" id="fAmount" placeholder="0" min="1" required />
+            </div>
+            <div class="field">
+              <label>Ngày</label>
+              <input class="input" type="date" id="fDate" required />
+            </div>
+          </div>
+
+          <div class="grid grid-2">
+            <div class="field">
+              <label>Danh mục</label>
+              <select class="input" id="fCategory" required></select>
+            </div>
+            <div class="field">
+              <label>Tài khoản</label>
+              <select class="input" id="fAccount"></select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Mô tả</label>
+            <input class="input" id="fNote" maxlength="100" placeholder="Ví dụ: Mua cà phê, Lương tháng 5…" required />
+          </div>
+
+          <div class="field">
+            <label>Ghi chú <span class="hint">(không bắt buộc)</span></label>
+            <textarea class="input" id="fMemo" maxlength="200" placeholder="Thêm ghi chú chi tiết (nếu có)…"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Hóa đơn / Biên lai <span class="hint">(không bắt buộc)</span></label>
+            <div id="dropZone" style="border:1.5px dashed var(--border);border-radius:14px;padding:22px;text-align:center;color:var(--ink-400);cursor:pointer;">
+              <div id="dzIcon" style="margin:0 auto 8px;width:32px;height:32px;color:var(--ink-300);"></div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--ink-500);">Kéo thả file vào đây hoặc bấm để chọn file</div>
+              <div style="font-size:11px;margin-top:4px;">Hỗ trợ JPG, PNG, PDF (tối đa 5MB)</div>
+              <input type="file" id="fileInput" accept="image/*,.pdf" style="display:none" />
+            </div>
+            <div id="fileName" class="text-muted mt-8" style="font-size:12px;"></div>
+          </div>
+
+          <div class="modal-actions" style="margin-top:6px;">
+            <button type="button" class="btn btn-ghost" onclick="location.href='transactions.html'">Hủy</button>
+            <button type="submit" class="btn btn-primary">Lưu giao dịch</button>
+          </div>
+        </form>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiIcon"></div>
+              <div><h3>AI hỗ trợ nhập liệu</h3><p class="card-sub">Gợi ý dựa trên nội dung bạn nhập</p></div>
+            </div>
+            <div id="aiSuggestBox"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Cảnh báo chi tiêu</h3></div>
+            <div id="budgetWarnBox"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Dự báo tác động</h3></div>
+            <div id="forecastBox"></div>
+          </div>
+
+          <div class="card card-pad" style="background:var(--purple-bg);border:none;">
+            <div class="flex gap-10 items-center">
+              <div class="stat-icon purple" style="background:#fff;" id="tipIcon"></div>
+              <p style="font-size:12px;font-weight:700;color:var(--ink-700);">Mẹo: bật nhận diện hóa đơn (OCR) để AI tự động điền số tiền và danh mục từ ảnh chụp.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/add-transaction.js"></script>
+</body>
+</html>

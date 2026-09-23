@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Cài đặt</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="settings" data-title="Cài đặt" data-subtitle="Tùy chỉnh trải nghiệm và quyền riêng tư AI">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div><h2>Cài đặt</h2><p>Tùy chỉnh thông báo, quyền riêng tư dữ liệu và trợ lý AI.</p></div>
+      </div>
+
+      <div class="grid grid-main-side">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="card-head"><h3>Thông báo</h3></div>
+            <div id="notifRows"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Quyền riêng tư dữ liệu AI</h3></div>
+            <div id="privacyRows"></div>
+            <div class="disclaimer" id="privacyNote"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Dữ liệu ứng dụng</h3></div>
+            <p class="text-muted" style="font-size:12.5px;margin-bottom:14px;">Toàn bộ dữ liệu của bạn được lưu trong CSDL SQLite thật ở backend (<code>chitieu.db</code>), không còn nằm trong trình duyệt.</p>
+            <div class="flex gap-10">
+              <button class="btn btn-ghost" id="exportBtn">Xuất dữ liệu của tôi (JSON)</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiIcon"></div>
+              <div><h3>Nhật ký gọi AI</h3><p class="card-sub">Minh bạch dữ liệu đã gửi cho AI</p></div>
+            </div>
+            <div id="aiLogList" style="max-height:360px;overflow-y:auto;"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script>
+const NOTIF_KEYS = [
+  ['Cảnh báo vượt ngân sách','Nhận thông báo khi chi tiêu chạm hoặc vượt hạn mức'],
+  ['Tóm tắt AI hằng tuần','Nhận email tóm tắt chi tiêu mỗi tuần từ AI'],
+  ['Nhắc nhở mục tiêu tiết kiệm','Nhắc khi mục tiêu sắp đến hạn'],
+];
+const PRIVACY_KEYS = [
+  ['Chỉ gửi dữ liệu đã tổng hợp cho AI','Không gửi từng giao dịch chi tiết hay thông tin định danh'],
+  ['Ưu tiên xử lý AI cục bộ','Hạn chế gửi dữ liệu ra dịch vụ AI đám mây khi có thể'],
+];
+
+document.addEventListener('layout:ready', (e) => {
+  const state = e.detail.state;
+  document.getElementById('aiIcon').innerHTML = icon('sparkle');
+  document.getElementById('notifRows').innerHTML = NOTIF_KEYS.map((n,i)=>toggleRow('notif'+i, n[0], n[1], true)).join('');
+  document.getElementById('privacyRows').innerHTML = PRIVACY_KEYS.map((n,i)=>toggleRow('priv'+i, n[0], n[1], true)).join('');
+  document.getElementById('privacyNote').innerHTML = icon('shield') + '<span>Theo thiết kế trong báo cáo: AI chỉ nhận số liệu đã tổng hợp/ẩn danh, khóa API được lưu ở biến môi trường phía backend, không đưa vào mã nguồn.</span>';
+
+  document.getElementById('exportBtn').addEventListener('click', async ()=>{
+    try{
+      const [categories, transactions, budgets, goals] = await Promise.all([
+        Api.listCategories(), Api.listTransactions({}), Api.listBudgets(state.period.month, state.period.year), Api.listGoals(),
+      ]);
+      const payload = { exported_at: new Date().toISOString(), user: state.user.email, categories, transactions, budgets, goals };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `finmind-data-${state.user.email}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Đã xuất dữ liệu của bạn');
+    }catch(err){ showToast(err.message, 'error'); }
+  });
+
+  renderLogs();
+});
+
+function toggleRow(id, title, desc, defaultOn){
+  return `<div class="flex items-center justify-between" style="padding:12px 0;border-bottom:1px solid var(--ink-100);">
+    <div><div style="font-weight:700;font-size:13px;">${title}</div><div class="text-muted" style="font-size:11.5px;">${desc}</div></div>
+    <label style="position:relative;display:inline-block;width:42px;height:24px;">
+      <input type="checkbox" ${defaultOn?'checked':''} style="opacity:0;width:0;height:0;" onchange="this.nextElementSibling.style.background=this.checked?'var(--brand-1)':'#d7dae8'; this.nextElementSibling.firstElementChild.style.transform=this.checked?'translateX(18px)':'translateX(0)'">
+      <span style="position:absolute;inset:0;background:${defaultOn?'var(--brand-1)':'#d7dae8'};border-radius:99px;transition:.2s;cursor:pointer;" onclick="this.previousElementSibling.click()">
+        <span style="position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s;transform:${defaultOn?'translateX(18px)':'translateX(0)'};"></span>
+      </span>
+    </label>
+  </div>`;
+}
+
+async function renderLogs(){
+  const box = document.getElementById('aiLogList');
+  box.innerHTML = `<p class="text-muted" style="font-size:12.5px;">Đang tải…</p>`;
+  try{
+    const logs = await Api.aiLogs();
+    box.innerHTML = logs.length ? logs.map(l=>`
+      <div class="ai-tip">
+        <div class="ai-tip-icon" style="background:${l.status==='success'?'var(--info-bg)':'var(--expense-bg)'};color:${l.status==='success'?'var(--info)':'var(--expense)'};">${icon('fileText')}</div>
+        <p><b>${l.feature}</b> · ${l.model} · ${l.latency_ms}ms<br><span style="color:var(--ink-400);">${l.request_summary}</span></p>
+      </div>`).join('') : `<p class="text-muted" style="font-size:12.5px;">Chưa có lượt gọi AI nào được ghi nhận. Hãy thử dùng AI phân tích hoặc AI Chat.</p>`;
+  }catch(err){
+    box.innerHTML = `<p class="text-muted" style="font-size:12.5px;">Không tải được nhật ký: ${err.message}</p>`;
+  }
+}
+</script>
+</body>
+</html>

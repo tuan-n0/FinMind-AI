@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Giao dịch</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="transactions" data-title="Giao dịch" data-subtitle="Toàn bộ lịch sử thu chi của bạn">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div>
+          <h2>Giao dịch</h2>
+          <p>Quản lý, tìm kiếm và lọc tất cả khoản thu chi của bạn.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost" id="exportBtn"><span id="dlIcon"></span>Xuất CSV</button>
+          <button class="btn btn-primary" onclick="location.href='add-transaction.html'"><span id="plusIcon"></span>Thêm giao dịch</button>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="statGrid"></div>
+
+      <div class="grid grid-main-side mt-20">
+        <div>
+          <div class="card card-pad">
+            <div class="filters-bar">
+              <select class="input" id="fType" style="min-width:140px;">
+                <option value="all">Tất cả loại</option>
+                <option value="income">Thu nhập</option>
+                <option value="expense">Chi tiêu</option>
+              </select>
+              <select class="input" id="fCategory" style="min-width:170px;"></select>
+              <select class="input" id="fMonth" style="min-width:150px;"></select>
+              <div class="input-icon-wrap grow">
+                <span id="searchIcon"></span>
+                <input class="input" id="fSearch" placeholder="Tìm theo mô tả, ghi chú…" />
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead><tr><th>Ngày</th><th>Mô tả</th><th>Danh mục</th><th>Tài khoản</th><th>Số tiền</th><th>Loại</th><th></th></tr></thead>
+                <tbody id="txBody"></tbody>
+              </table>
+            </div>
+
+            <div class="pagination">
+              <span class="p-info" id="pInfo"></span>
+              <div class="p-btns" id="pBtns"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="panel-ai-header">
+              <div class="stat-icon" id="aiIcon1"></div>
+              <div><h3>AI phân tích &amp; gợi ý</h3><p class="card-sub">Tóm tắt lịch sử giao dịch</p></div>
+            </div>
+            <div id="aiSummaryText" style="font-size:12.8px;color:var(--ink-700);font-weight:600;line-height:1.6;margin-bottom:14px;"></div>
+            <div id="aiTipsList"></div>
+            <div class="disclaimer" id="aiDisclaimer"></div>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Khoản chi bất thường</h3></div>
+            <div id="anomalyList"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/transactions.js"></script>
+</body>
+</html>

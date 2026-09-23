@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinMind AI — Tài khoản</title>
+<link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+<body data-page="account" data-title="Tài khoản" data-subtitle="Thông tin hồ sơ và bảo mật của bạn">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar"></aside>
+  <div class="main-col">
+    <header class="topbar" id="topbar"></header>
+    <main class="content">
+
+      <div class="page-head">
+        <div><h2>Tài khoản</h2><p>Quản lý thông tin hồ sơ, bảo mật và phiên đăng nhập.</p></div>
+      </div>
+
+      <div class="grid grid-main-side">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="card-head"><h3>Hồ sơ cá nhân</h3></div>
+            <div class="flex items-center gap-16" style="margin-bottom:20px;">
+              <div class="avatar" style="width:64px;height:64px;border-radius:18px;font-size:20px;" id="bigAvatar"></div>
+              <div>
+                <div style="font-weight:800;font-size:16px;" id="profileName"></div>
+                <div class="text-muted" style="font-size:12.5px;" id="profileEmail"></div>
+              </div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Họ và tên</label><input class="input" id="fName" /></div>
+              <div class="field"><label>Email</label><input class="input" id="fEmail" type="email" /></div>
+            </div>
+            <button class="btn btn-primary" id="saveProfileBtn">Lưu thay đổi</button>
+          </div>
+
+          <div class="card card-pad">
+            <div class="card-head"><h3>Đổi mật khẩu</h3></div>
+            <div class="grid grid-2">
+              <div class="field"><label>Mật khẩu hiện tại</label><input class="input" type="password" id="curPass" placeholder="••••••••" /></div>
+              <div class="field"><label>Mật khẩu mới</label><input class="input" type="password" id="newPass" placeholder="Tối thiểu 8 ký tự" minlength="8" /></div>
+            </div>
+            <button class="btn btn-ghost" id="changePassBtn">Cập nhật mật khẩu</button>
+            <div class="disclaimer" id="pwDisclaimer"></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="card card-pad">
+            <div class="card-head"><h3>Bảo mật dữ liệu</h3></div>
+            <div class="ai-tip"><div class="ai-tip-icon" style="background:var(--income-bg);color:var(--income);" id="shieldIcon"></div><p>Mật khẩu của bạn được băm (hash) trước khi lưu trữ. FinMind AI không lưu mật khẩu dạng văn bản gốc.</p></div>
+            <div class="ai-tip"><div class="ai-tip-icon" style="background:var(--info-bg);color:var(--info);" id="lockIcon"></div><p>Dữ liệu tài chính của bạn chỉ được truy cập bởi chính bạn — mỗi tài khoản là một không gian dữ liệu độc lập.</p></div>
+          </div>
+          <div class="card card-pad">
+            <div class="card-head"><h3>Phiên đăng nhập</h3></div>
+            <p class="text-muted mt-8" style="font-size:12.5px;">Đăng xuất khỏi FinMind AI trên thiết bị này.</p>
+            <button class="btn btn-danger-ghost w-full mt-16" style="justify-content:center;" id="logoutBtn"><span id="logoutIcon"></span>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/ui.js"></script>
+<script>
+document.addEventListener('layout:ready', (e) => {
+  const state = e.detail.state;
+  document.getElementById('bigAvatar').textContent = state.user.initials;
+  document.getElementById('profileName').textContent = state.user.name;
+  document.getElementById('profileEmail').textContent = state.user.email;
+  document.getElementById('fName').value = state.user.name;
+  document.getElementById('fEmail').value = state.user.email;
+  document.getElementById('shieldIcon').innerHTML = icon('shield');
+  document.getElementById('lockIcon').innerHTML = icon('lockShield');
+  document.getElementById('logoutIcon').innerHTML = icon('logout');
+  document.getElementById('pwDisclaimer').innerHTML = icon('shield') + '<span>Mật khẩu được băm PBKDF2-SHA256 trước khi lưu, backend không lưu văn bản gốc.</span>';
+
+  document.getElementById('saveProfileBtn').addEventListener('click', async ()=>{
+    const name = document.getElementById('fName').value.trim();
+    const email = document.getElementById('fEmail').value.trim();
+    if(!name || !email){ showToast('Vui lòng nhập đầy đủ họ tên và email', 'error'); return; }
+    try{
+      const updated = await Api.updateMe({ full_name: name, email });
+      const initials = computeInitials(updated.full_name || updated.email);
+      document.getElementById('profileName').textContent = updated.full_name || updated.email;
+      document.getElementById('bigAvatar').textContent = initials;
+      showToast('Đã lưu thông tin hồ sơ');
+    }catch(err){ showToast(err.message, 'error'); }
+  });
+
+  document.getElementById('changePassBtn').addEventListener('click', async ()=>{
+    const cur = document.getElementById('curPass').value;
+    const next = document.getElementById('newPass').value;
+    if(!cur || !next){ showToast('Vui lòng nhập đủ mật khẩu hiện tại và mật khẩu mới', 'error'); return; }
+    if(next.length < 8){ showToast('Mật khẩu mới phải từ 8 ký tự', 'error'); return; }
+    try{
+      await Api.changePassword(cur, next);
+      showToast('Đã cập nhật mật khẩu');
+      document.getElementById('curPass').value = '';
+      document.getElementById('newPass').value = '';
+    }catch(err){ showToast(err.message, 'error'); }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', ()=>{
+    Api.clearToken();
+    clearViewPeriod();
+    window.location.href = 'index.html';
+  });
+});
+</script>
+</body>
+</html>
