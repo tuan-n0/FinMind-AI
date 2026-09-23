@@ -7,7 +7,7 @@ dựa trên dữ liệu tài chính thật của người dùng, lưu trong CSDL
 ## Cấu trúc dự án
 
 ```
-C:\HTML\AI\
+ChiTieu/
 ├── frontend/         HTML/CSS/JS thuần, gọi thẳng API backend qua fetch (không dùng framework)
 │   ├── index.html, dashboard.html, transactions.html, ...
 │   ├── css/style.css   Design system dùng chung
@@ -32,8 +32,8 @@ C:\HTML\AI\
 | Frontend | HTML/CSS/JavaScript thuần (không framework), Chart.js cho biểu đồ |
 | CSDL | SQLite (`database/schema.sql` là nguồn thiết kế duy nhất) |
 | IDE/Editor | Visual Studio Code |
-| Công cụ kiểm thử API | Swagger UI tự sinh tại `/docs`, bộ test tự động `pytest` (24 test, xem mục Kiểm thử) |
-| AI/Model sử dụng trong SDLC | **Runtime:** Ollama (`llama3.2`, chạy cục bộ) cho 5 chức năng AI trong ứng dụng, tự rơi về rule-engine nội bộ khi không có Ollama. **Lúc lập trình:** Claude (Anthropic, qua Claude Code) hỗ trợ sinh code, debug, review — xem `docs/ai-dev-log.md` |
+| Công cụ kiểm thử API | Swagger UI tự sinh tại `/docs`, bộ test tự động `pytest` (26 test, xem mục Kiểm thử) |
+| AI/Model sử dụng trong SDLC | **Runtime:** Ollama (`llama3.2`, chạy cục bộ) cho 3 chức năng AI trong ứng dụng (báo cáo tháng, gợi ý ngân sách, hỏi-đáp), tự rơi về rule-engine nội bộ khi không có Ollama. **Lúc lập trình:** Claude (Anthropic, qua Claude Code) hỗ trợ sinh code, debug, review — xem `docs/ai-dev-log.md` |
 
 ## Kiến trúc: một hệ thống liền mạch
 
@@ -89,11 +89,13 @@ Dữ liệu CSDL được lưu vào Docker volume `chitieu_data` (qua biến mô
 
 ```bash
 cd backend
+python -m venv venv          & rem bỏ qua nếu đã chạy start.bat (venv đã có sẵn)
 venv\Scripts\activate
+pip install -r requirements.txt
 pytest -v
 ```
 
-24 test bao phủ auth, CRUD, Business Rules (BR1-BR8), cô lập dữ liệu theo
+26 test bao phủ auth, CRUD, Business Rules (BR1-BR10), cô lập dữ liệu theo
 user, và các tình huống lỗi AI (timeout, response rỗng/sai định dạng, kết
 nối thất bại) — xem chi tiết trong `backend/README.md` mục 3.
 

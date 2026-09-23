@@ -110,4 +110,4 @@ Muốn thử nghiệm/so sánh prompt trước khi tích hợp, chạy script `p
 
 ## 7. Kết nối với frontend
 
-Frontend tĩnh trong thư mục gốc (`../index.html`, `../dashboard.html`, …) đã được nối trực tiếp vào API này qua `fetch` (xem `../js/api.js`, `../js/data.js`) — **không còn dùng `localStorage` để lưu dữ liệu nghiệp vụ** (chỉ còn dùng để lưu JWT token và lịch sử hội thoại AI Chat phía client). Chạy backend (`start.bat`) và một static server cho frontend (`python -m http.server 5173` ở thư mục gốc `C:\HTML\AI`), sau đó mở `http://localhost:5173`.
+Frontend tĩnh trong thư mục gốc (`../index.html`, `../dashboard.html`, …) đã được nối trực tiếp vào API này qua `fetch` (xem `../js/api.js`, `../js/data.js`) — **không còn dùng `localStorage` để lưu dữ liệu nghiệp vụ** (chỉ còn dùng để lưu JWT token và lịch sử hội thoại AI Chat phía client). Chạy backend (`start.bat`) và một static server cho frontend (`python -m http.server 5173` ở thư mục `frontend/`), sau đó mở `http://localhost:5173`.
